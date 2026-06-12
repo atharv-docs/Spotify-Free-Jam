@@ -28,7 +28,7 @@ The installer automatically:
 Open PowerShell and run:
 
 ```powershell
-irm https://raw.githubusercontent.com/YOUR_USERNAME/spicetify-jam-installer/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.ps1 | iex
 ```
 
 ## What the installer does
