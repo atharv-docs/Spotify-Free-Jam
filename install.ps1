@@ -1,22 +1,19 @@
 $ErrorActionPreference = "Stop"
 
 function Install-IfMissing {
-param(
-[string]$Command,
-[string]$WingetId
-)
+    param(
+        [string]$Command,
+        [string]$WingetId
+    )
 
-```
-if (!(Get-Command $Command -ErrorAction SilentlyContinue)) {
-    Write-Host "Installing $Command..." -ForegroundColor Yellow
+    if (!(Get-Command $Command -ErrorAction SilentlyContinue)) {
+        Write-Host "Installing $Command..." -ForegroundColor Yellow
 
-    winget install --id $WingetId `
-        --accept-package-agreements `
-        --accept-source-agreements `
-        --silent
-}
-```
-
+        winget install --id $WingetId `
+            --accept-package-agreements `
+            --accept-source-agreements `
+            --silent
+    }
 }
 
 Write-Host ""
@@ -25,45 +22,41 @@ Write-Host "     Spicetify Jam Installer" -ForegroundColor Cyan
 Write-Host "======================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Check Winget
-
 if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
-throw "Winget is required but is not installed."
+    throw "Winget is required but is not installed."
 }
 
 Write-Host "Checking dependencies..." -ForegroundColor Cyan
 
-# Git
-
 Install-IfMissing "git" "Git.Git"
-
-# Node.js
-
 Install-IfMissing "npm" "OpenJS.NodeJS.LTS"
 
-# Refresh PATH
-
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" +
-[System.Environment]::GetEnvironmentVariable("Path","User")
+            [System.Environment]::GetEnvironmentVariable("Path","User")
 
-# Spicetify
+if (!(Get-Command git -ErrorAction SilentlyContinue)) {
+    throw "Git installation failed. Please restart PowerShell and try again."
+}
+
+if (!(Get-Command npm -ErrorAction SilentlyContinue)) {
+    throw "Node.js installation failed. Please restart PowerShell and try again."
+}
+
 
 if (!(Get-Command spicetify -ErrorAction SilentlyContinue)) {
 
-```
-Write-Host "Installing Spicetify..." -ForegroundColor Yellow
+    Write-Host "Installing Spicetify..." -ForegroundColor Yellow
 
-iwr -useb https://raw.githubusercontent.com/spicetify/cli/main/install.ps1 | iex
+    iwr -useb https://raw.githubusercontent.com/spicetify/cli/main/install.ps1 | iex
 
-# Refresh PATH
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" +
-            [System.Environment]::GetEnvironmentVariable("Path","User")
-```
+    Start-Sleep -Seconds 2
 
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" +
+                [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
 if (!(Get-Command spicetify -ErrorAction SilentlyContinue)) {
-throw "Spicetify installation failed."
+    throw "Spicetify installation failed."
 }
 
 Write-Host ""
@@ -72,7 +65,12 @@ Write-Host "Downloading Spicetify Jam..." -ForegroundColor Cyan
 $repo = "$env:TEMP\spicetify-jam"
 
 if (Test-Path $repo) {
-Remove-Item $repo -Recurse -Force
+    try {
+        Remove-Item $repo -Recurse -Force
+    }
+    catch {
+        $repo = "$env:TEMP\spicetify-jam-" + (Get-Random)
+    }
 }
 
 git clone https://github.com/Kyzenkms/spicetify-jam $repo
@@ -81,7 +79,7 @@ Set-Location $repo
 
 Write-Host ""
 Write-Host "Installing packages..." -ForegroundColor Cyan
-npm install
+npm install --force
 
 Write-Host ""
 Write-Host "Building extension..." -ForegroundColor Cyan
@@ -91,10 +89,10 @@ Write-Host ""
 Write-Host "Applying extension..." -ForegroundColor Cyan
 
 try {
-spicetify backup apply
+    spicetify backup apply
 }
 catch {
-Write-Host "Backup step skipped." -ForegroundColor DarkYellow
+    Write-Host "Backup step skipped." -ForegroundColor DarkYellow
 }
 
 spicetify config extensions spicetify-jam.js
@@ -102,7 +100,7 @@ spicetify apply
 
 Write-Host ""
 Write-Host "======================================" -ForegroundColor Green
-Write-Host " Installation Complete!" -ForegroundColor Green
+Write-Host " Spicetify Jam Installed Successfully!" -ForegroundColor Green
 Write-Host "======================================" -ForegroundColor Green
 Write-Host ""
 
