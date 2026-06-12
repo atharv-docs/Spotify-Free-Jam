@@ -28,6 +28,11 @@ Open PowerShell and run:
 ```powershell
 irm https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.ps1 | iex
 ```
+##If getting running "scripts is disabled on this system" error then run:
+
+```
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.ps1 | iex"
+```
 
 ## Linux
 
