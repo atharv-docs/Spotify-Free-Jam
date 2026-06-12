@@ -23,15 +23,14 @@ The installer automatically:
 
 ## Windows
 
-Open PowerShell and run:
-
 ```powershell
 irm https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.ps1 | iex
 ```
-##If getting running "scripts is disabled on this system" error then run:
 
-```
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.ps1 | iex"
+### If PowerShell blocks script execution
+
+```powershell
+powershell -ExecutionPolicy Bypass -NoProfile -Command "irm https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.ps1 | iex"
 ```
 
 ## Linux
