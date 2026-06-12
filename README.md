@@ -1,5 +1,9 @@
 # Spicetify Jam Installer
 
+![Windows](https://img.shields.io/badge/Windows-10%2F11-blue)
+![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue)
+![License](https://img.shields.io/github/license/YOUR_USERNAME/spicetify-jam-installer)
+
 A one-command installer for Spicetify Jam.
 
 The installer automatically:
