@@ -1,29 +1,27 @@
-# Spicetify Jam Installer
+# Spotify Free Jam Installer
 
 ![Windows](https://img.shields.io/badge/Windows-10%2F11-blue)
+![Linux](https://img.shields.io/badge/Linux-Supported-green)
+![macOS](https://img.shields.io/badge/macOS-Supported-lightgrey)
 ![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue)
-![License](https://img.shields.io/github/license/YOUR_USERNAME/spicetify-jam-installer)
 
-A one-command installer for Spicetify Jam.
+One-command installer for Spicetify Jam.
 
 The installer automatically:
 
 - Installs Git (if missing)
 - Installs Node.js (if missing)
 - Installs Spicetify (if missing)
-- Clones the latest Spicetify Jam repository
+- Downloads the latest Spicetify Jam source code
 - Installs dependencies
 - Builds the extension
 - Applies it to Spotify
 
-## Requirements
+---
 
-- Windows 10/11
-- Spotify Desktop
-- PowerShell 5.1+
-- Winget
+# Quick Install
 
-## Installation
+## Windows
 
 Open PowerShell and run:
 
@@ -31,7 +29,48 @@ Open PowerShell and run:
 irm https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.ps1 | iex
 ```
 
-## What the installer does
+## Linux
+
+Open a terminal and run:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.sh | bash
+```
+
+## macOS
+
+Open Terminal and run:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.sh | bash
+```
+
+---
+
+# Requirements
+
+## Windows
+
+- Windows 10 or newer
+- Spotify Desktop
+- PowerShell 5.1+
+- Winget
+
+## Linux
+
+- Spotify installed
+- Bash
+- Internet connection
+
+## macOS
+
+- Spotify installed
+- Bash/Zsh
+- Internet connection
+
+---
+
+# What the Installer Does
 
 1. Checks for Git
 2. Checks for Node.js and npm
@@ -39,51 +78,74 @@ irm https://raw.githubusercontent.com/atharv-docs/Spotify-Free-Jam/main/install.
 4. Installs missing dependencies automatically
 5. Downloads the latest Spicetify Jam source code
 6. Builds the extension
-7. Applies the extension
+7. Applies it to Spotify
 
-## Updating
+---
 
-Run the installation command again:
+# Updating
 
-```powershell
-irm https://raw.githubusercontent.com/YOUR_USERNAME/spicetify-jam-installer/main/install.ps1 | iex
-```
+Simply run the installation command again for your platform.
 
-## Troubleshooting
+The installer always downloads the latest version.
 
-### Winget not found
+---
 
-Install App Installer from Microsoft Store:
+# Troubleshooting
 
-https://apps.microsoft.com/detail/9NBLGGH4NNS1
+## Winget not found (Windows)
 
-### Spotify not detected
+Install App Installer from the Microsoft Store and try again.
 
-Make sure Spotify Desktop is installed and launched at least once.
+## Git installation failed
 
-### Spicetify command not found
+Restart PowerShell and rerun the installer.
 
-Run:
+## Node.js installation failed
+
+Restart PowerShell and rerun the installer.
+
+## Spicetify installation failed
+
+Install Spicetify manually:
+
+### Windows
 
 ```powershell
 iwr -useb https://raw.githubusercontent.com/spicetify/cli/main/install.ps1 | iex
 ```
 
-Then restart PowerShell and try again.
+### Linux/macOS
 
-## Uninstall
+```bash
+curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
+```
 
-Open PowerShell and run:
+Then rerun the installer.
 
-```powershell
-spicetify config extensions
+---
+
+# Uninstall
+
+Remove the extension and reapply Spicetify:
+
+```bash
 spicetify apply
 ```
 
-Or remove the extension manually from your Spicetify extensions directory.
+You may also manually delete the extension from your Spicetify extensions directory.
 
-## Disclaimer
+---
+
+# Disclaimer
 
 This project is not affiliated with Spotify or Spicetify.
 
-Use at your own risk. The installer executes PowerShell commands and installs software automatically. In other words, exactly the sort of thing security teams stare at nervously while drinking coffee.
+Use at your own risk.
+
+The installer automatically downloads and executes software from external sources. Review the source code before running if you have security concerns.
+
+---
+
+# License
+
+This project follows the license terms of the original Spicetify Jam project and its dependencies.
